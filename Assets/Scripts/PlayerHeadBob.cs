@@ -23,7 +23,6 @@ public class PlayerHeadBob : MonoBehaviour
 
     private void Awake()
     {
-        _playerController = GetComponent<CharacterController>();
         _startPos = _camera.localPosition;
     }
 
