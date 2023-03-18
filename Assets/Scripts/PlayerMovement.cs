@@ -13,22 +13,21 @@ public class PlayerMovement : MonoBehaviour
     public Camera playerCamera;
     [SerializeField]
     private float moveSpeed = 5f;
-    // [SerializeField]
-    // private float footstepInterval = 10f;
     [SerializeField]
-    private float sensitivity = 150f;
+    private float sensitivity = 120f;
     private float rotationX,rotationY;
+    public Vector3 movement;
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        InvokeRepeating("MoveSound", 0, 0.3f);
     }
 
     void Update()
     {
         Move();
-        MoveSound();
         Look();
     }
 
@@ -39,27 +38,21 @@ public class PlayerMovement : MonoBehaviour
         movement = new Vector3(keyboardX,0,keyboardY).normalized;
 
         Quaternion relativeRotation = Quaternion.Euler(0,playerTransform.transform.eulerAngles.y,0);
-
         playerController.Move(relativeRotation * movement * moveSpeed * Time.deltaTime);
     }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     [Header("Audio")]
-    public Vector3 movement;
-    public EventInstance Footstep;
+    // public EventInstance Footstep;
     public string EventPath = "event:/Footsteps/Footsteps";
 
-    void MoveSound() {
+    private void MoveSound() {
         if(movement != Vector3.zero)
         {
-            EventInstance Footstep = RuntimeManager.CreateInstance(EventPath);
-            Footstep.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject.transform));
-            // RuntimeManager.AttachInstanceToGameObject(Walk, transform, RB);
+            RuntimeManager.PlayOneShot(EventPath, playerTransform.position + Vector3.down);
         }
     }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void Look() {
         float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;

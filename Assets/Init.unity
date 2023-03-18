@@ -2318,28 +2318,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 412906777}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a698ce9807de0d4999e3a77cdd49067, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d46cd60358794f4aa62a706e59d1adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navMeshAgent: {fileID: 412906778}
-  startWaitTime: 4
-  timeToRotate: 2
-  speedWalk: 6
-  speedRun: 9
-  viewRadius: 15
-  viewAngle: 90
-  playerMask:
-    serializedVersion: 2
-    m_Bits: 8
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 0
-  meshResolution: 1
-  edgeIterations: 4
-  edgeDistance: 0.5
-  waypoints:
-  - {fileID: 1629330555}
-  - {fileID: 1724269826}
+  patrolSpeed: 2
+  chaseSpeed: 4
+  fieldOfViewAngle: 110
+  sightRange: 10
 --- !u!1 &432432459
 GameObject:
   m_ObjectHideFlags: 0
@@ -2491,7 +2476,7 @@ GameObject:
   - component: {fileID: 491891648}
   - component: {fileID: 491891647}
   m_Layer: 5
-  m_Name: Minmap
+  m_Name: Minimap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7368,7 +7353,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1282547596
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9361,7 +9346,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1632068719
 RectTransform:
   m_ObjectHideFlags: 0
