@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Audio")]
     // public EventInstance Footstep;
-    public string EventPath = "event:/Footsteps/Footsteps";
+    public string EventPath = "event:/Footsteps";
 
     private void MoveSound() {
         if(movement != Vector3.zero)
@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
 
         rotationY = playerTransform.transform.localRotation.eulerAngles.y + mouseX;
-        rotationX -= mouseY; rotationX = Mathf.Clamp(rotationX, -90f, 90f);
+        rotationX -= mouseY; rotationX = Mathf.Clamp(rotationX, -89f, 89f);
 
         camHolder.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
         playerTransform.transform.localRotation = Quaternion.Euler(0, rotationY, 0);

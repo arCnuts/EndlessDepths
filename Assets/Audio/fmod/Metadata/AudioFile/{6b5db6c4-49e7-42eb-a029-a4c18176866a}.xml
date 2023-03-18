@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{6b5db6c4-49e7-42eb-a029-a4c18176866a}">
+		<property name="assetPath">
+			<value>Footsteps/ES_Footsteps Cement 12 [2023-03-18 163633]-8.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.29891156462585033</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{979f5a6a-6902-44fb-b70e-fd9db2a059ab}</destination>
+		</relationship>
+	</object>
+</objects>
