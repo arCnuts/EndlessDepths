@@ -15,17 +15,25 @@ public class EnemyController : MonoBehaviour
     private Vector3 lastKnownPlayerPosition;
     private bool playerInSight;
     private int enemyState;
+    public float timeRemaining;
+
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         lastKnownPlayerPosition = transform.position;
+        timeRemaining = 3;
     }
 
     void Update()
     {
         CheckPlayerSight();
         SetEnemyState();
+
+        if (timeRemaining > 0)
+        {
+            timeRemaining -= Time.deltaTime;
+        }
     }
 
     private void CheckPlayerSight()
@@ -47,11 +55,9 @@ public class EnemyController : MonoBehaviour
                 }
             }
         }
-        
         enemyState = 1;
-    }
 
-    // Set the state of the enemy and set its destination
+    }
     private void SetEnemyState()
     {
         switch (enemyState)
@@ -60,13 +66,6 @@ public class EnemyController : MonoBehaviour
                 playerInSight = false;
                 navMeshAgent.speed = patrolSpeed;
 
-                // Vector3 randomDirection = Random.insideUnitSphere * 10f;
-                // randomDirection += transform.position;
-                // NavMeshHit hit;
-                // NavMesh.SamplePosition(randomDirection, out hit, 10f, NavMesh.AllAreas);
-                // Vector3 finalPosition = hit.position;
-
-                // navMeshAgent.SetDestination(finalPosition);
                 break;
 
             case 2: // Chase
@@ -76,11 +75,19 @@ public class EnemyController : MonoBehaviour
                 navMeshAgent.SetDestination(lastKnownPlayerPosition);
                 break;
 
-            case 3: // I see EVERYTHING!
-                playerInSight = true;
-
+            case 3: // I see EVERYTHING!                
+                playerInSight = false;
                 navMeshAgent.speed = chaseSpeed;
+
+                if (timeRemaining > 0) {
+                    timeRemaining -= Time.deltaTime;
+                }
+                else {
+                    enemyState = 1;
+                }
+
                 navMeshAgent.SetDestination(player.position);
+
                 break;
         }
     }
