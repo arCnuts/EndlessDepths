@@ -15,11 +15,9 @@ public class PlayerHeadBob : MonoBehaviour
     private Transform _camera = null;
     [SerializeField]
     private Transform _cameraHolder = null;
-    
-    private float _toggleSpeed = 3.0f;
     private Vector3 _startPos;
     [SerializeField]
-    public CharacterController _playerController;
+    public CharacterController playerController;
 
     private void Awake()
     {
@@ -41,9 +39,9 @@ public class PlayerHeadBob : MonoBehaviour
 
     private void CheckMotion()
     {
-        float speed = new Vector3(_playerController.velocity.x, 0, _playerController.velocity.z).magnitude;
+        float currendSpeed = new Vector3(playerController.velocity.x, 0, playerController.velocity.z).magnitude;
 
-        if(speed < _toggleSpeed) return;
+        if(currendSpeed < 3f) return;
 
         PlayMotion(FootStepMotion());
     }

@@ -9,136 +9,127 @@ public class PlayerMovement : MonoBehaviour
 {
     public CharacterController playerController;
     public Transform playerTransform;
-    public Transform camHolder;
+    public Transform cameraHolder;
     public Camera playerCamera;
+    public GameObject flashlightLight;
+
+    private bool flashlightActive = false;
+    private bool walking = false;
+
+    private float rotationX,rotationY;
+    private float footstepFrequency = 0.3f;
+    private float time;
+    private Vector3 combinedMovement;
+
+    [Header("Player Settings")]
     [SerializeField]
-    private float moveSpeed = 5f;
+    private float runSpeed = 10f;
+    [SerializeField]
+    private float shiftSpeed = 5f;
     [SerializeField]
     private float sensitivity = 2f;
     [SerializeField]
-    private float speed = 2f;
-    private float rotationX,rotationY;
-    private Vector3 movement;
+    private bool smoothCamera = true;
     [SerializeField]
-    public GameObject FlashlightLight;
-    private bool FlashlightActive = false;
+    private float cameraSmoothness = 15f;
     [Header("Audio")]
-    public string EventPath = "event:/Footsteps";
-    public string FlashlightOn = "event:/Flashlight/ON";
-    public string FlashlightOff = "event:/Flashlight/OFF";
+    public string FootstepRunningPath = "event:/FootstepsRunning";
+    public string FootstepWalkingPath = "event:/FootstepsWalking";
+    public string FlashlightOnPath = "event:/Flashlight/ON";
+    public string FlashlightOffPath = "event:/Flashlight/OFF";
 
-    void Start()
-    {
-        FlashlightLight.gameObject.SetActive(false);
+
+    void Start() {
+        flashlightLight.gameObject.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        InvokeRepeating("MoveSound", 0, 0.3f);
     }
 
-    void Update()
-    {
+    void Update() {
+        InputManager();
+        FootstepManager();
         Move();
         Look();
-        Flashlight();
     }
 
-    private void Move()
-    {
-        float keyboardX = Input.GetAxisRaw("Horizontal");
-        float keyboardY = Input.GetAxisRaw("Vertical");
-        movement = new Vector3(keyboardX,0,keyboardY).normalized;
-
-        Quaternion relativeRotation = Quaternion.Euler(0,playerTransform.transform.eulerAngles.y,0);
-        playerController.Move(relativeRotation * movement * moveSpeed * Time.deltaTime);
-    }
-
-<<<<<<< HEAD
-    private void MoveSound()
-    {
-        float currentSpeed = new Vector3(playerController.velocity.x, 0, playerController.velocity.z).magnitude;
-        if(currentSpeed < toggleSpeed) return;
-        RuntimeManager.PlayOneShot(FootstepPath, playerTransform.position + new Vector3(0, -3, 0));
-=======
-
-
-
-    private void MoveSound() {
-        if(movement != Vector3.zero)
-        {
-            RuntimeManager.PlayOneShot(EventPath, playerTransform.position + new Vector3(0, -3, 0));
-        }
->>>>>>> parent of cf0e007 (1)
-    }
-
-    private void Flashlight() {
+    private void InputManager() {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            if (FlashlightActive == false)
+            if (flashlightActive == false)
             {
-                RuntimeManager.PlayOneShot(FlashlightOn, playerTransform.position + Vector3.down);
-                FlashlightLight.gameObject.SetActive(true);
-                FlashlightActive = true;
+                RuntimeManager.PlayOneShot(FlashlightOnPath, playerTransform.position + Vector3.down);
+                flashlightLight.gameObject.SetActive(true);
+                flashlightActive = true;
+                
             }
             else
             {
-                RuntimeManager.PlayOneShot(FlashlightOff, playerTransform.position + Vector3.down);
-                FlashlightLight.gameObject.SetActive(false);
-                FlashlightActive = false;
+                RuntimeManager.PlayOneShot(FlashlightOffPath, playerTransform.position + Vector3.down);
+                flashlightLight.gameObject.SetActive(false);
+                flashlightActive = false;
             }
         }
-    }
 
-<<<<<<< HEAD
-    private Ray interactionRay;
-
-    private void Hide()
-    {
-        Ray interactionRay = new Ray(playerTransform.position, playerTransform.forward);
-        RaycastHit interactionRayHit;
-        Vector3 interactionRayEndpoint = playerTransform.forward;
-
-        Debug.DrawLine(playerTransform.position, interactionRayEndpoint);
-
-        bool hitFound = Physics.Raycast(interactionRay, out interactionRayHit, 10f);
-        if(hitFound)
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            Debug.Log("Hi");
-            if(interactionRayHit.collider.gameObject.name == "table")
-            {
-                Debug.Log("Hello");
-            }
+            walking = true;
+            footstepFrequency = 0.6f;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            walking = false;
+            footstepFrequency = 0.3f;
         }
     }
 
-    private void Look()
-    {
+    private void FootstepManager() {
+        if (Time.time > time) {
+            time = Time.time + footstepFrequency;
+            float currendSpeed = new Vector3(playerController.velocity.x, 0, playerController.velocity.z).magnitude;
+            if(currendSpeed < 3f) return;
+                if (walking) {
+                    RuntimeManager.PlayOneShot(FootstepWalkingPath, playerTransform.position + new Vector3(0, -3, 0));
+                }
+                else {
+                    RuntimeManager.PlayOneShot(FootstepRunningPath, playerTransform.position + new Vector3(0, -3, 0));
+                }
+        }
+    }
+
+    private void Move() {
+        float keyboardX = Input.GetAxisRaw("Horizontal");
+        float keyboardY = Input.GetAxisRaw("Vertical");
+        combinedMovement = new Vector3(keyboardX,0,keyboardY).normalized;
+
+        Quaternion relativeRotation = Quaternion.Euler(0,playerTransform.transform.eulerAngles.y,0);
+        if (walking) {
+            playerController.Move(relativeRotation * combinedMovement * shiftSpeed * Time.deltaTime);
+        }
+        else {
+            playerController.Move(relativeRotation * combinedMovement * runSpeed * Time.deltaTime);
+        }
+    }
+
+    private void Look() {
         float mouseX = Input.GetAxis("Mouse X") * sensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
-=======
-    private void Look() {
-        float mouseX = Input.GetAxis("Mouse X") * sensitivity * 100; //* Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * sensitivity; //* Time.deltaTime;
->>>>>>> parent of cf0e007 (1)
-
-        rotationY += mouseX + camHolder.transform.localRotation.eulerAngles.y;
-        rotationX -= mouseY + playerTransform.transform.localRotation.eulerAngles.x;
         
-        rotationX = Mathf.Clamp(rotationX, -89f, 89f);
+        if(smoothCamera)
+        {
+            rotationY += mouseX;
+            rotationX -= mouseY + playerTransform.transform.localRotation.eulerAngles.x;
+            rotationX = Mathf.Clamp(rotationX, -89f, 89f);
+            
+            playerTransform.transform.localRotation = Quaternion.Slerp(playerTransform.transform.localRotation, Quaternion.Euler(0, rotationY, 0), cameraSmoothness * Time.deltaTime);
+            cameraHolder.transform.localRotation = Quaternion.Slerp(cameraHolder.transform.localRotation, Quaternion.Euler(rotationX, 0, 0), cameraSmoothness * Time.deltaTime);
+        }
+        else
+        {
+            rotationY = playerTransform.transform.localRotation.eulerAngles.y + mouseX;
+            rotationX -= mouseY; rotationX = Mathf.Clamp(rotationX, -90f, 90f);
+            cameraHolder.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+            playerTransform.transform.localRotation = Quaternion.Euler(0, rotationY, 0);
+        }
 
-<<<<<<< HEAD
-=======
-        Quaternion test1 = Quaternion.Euler(0, rotationY, 0);
-        playerTransform.transform.localRotation = Quaternion.Slerp(playerTransform.transform.localRotation, test1, Time.deltaTime * speed);
->>>>>>> parent of cf0e007 (1)
-        // playerTransform.transform.localRotation = Quaternion.Euler(0, rotationY, 0);
-        playerTransform.transform.localRotation = Quaternion.Slerp(playerTransform.transform.localRotation, Quaternion.Euler(0, rotationY, 0), speed * Time.deltaTime);
-
-<<<<<<< HEAD
-=======
-        Quaternion test2 = Quaternion.Euler(rotationX, 0, 0);
-        camHolder.transform.localRotation = Quaternion.Slerp(camHolder.transform.localRotation, test2, Time.deltaTime * speed);
->>>>>>> parent of cf0e007 (1)
-        // camHolder.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
-        camHolder.transform.localRotation = Quaternion.Slerp(camHolder.transform.localRotation, Quaternion.Euler(rotationX, 0, 0), speed * Time.deltaTime);
     }
 }

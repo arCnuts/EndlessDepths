@@ -5851,20 +5851,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 918242595}
   playerTransform: {fileID: 918242599}
-  camHolder: {fileID: 1916056959}
+  cameraHolder: {fileID: 1916056959}
   playerCamera: {fileID: 1823688466}
-  moveSpeed: 10
-<<<<<<< HEAD
-  sensitivity: 5
-  speed: 15
-=======
-  sensitivity: 10
-  speed: 2
->>>>>>> parent of cf0e007 (1)
-  FlashlightLight: {fileID: 1291728393}
-  FootstepPath: event:/Footsteps
-  FlashlightOn: event:/Flashlight/ON
-  FlashlightOff: event:/Flashlight/OFF
+  flashlightLight: {fileID: 1291728393}
+  runSpeed: 10
+  shiftSpeed: 5
+  sensitivity: 2
+  smoothCamera: 1
+  cameraSmoothness: 15
+  FootstepRunningPath: event:/FootstepsRunning
+  FootstepShiftingPath: event:/FootstepsWalking
+  FlashlightOnPath: event:/Flashlight/ON
+  FlashlightOffPath: event:/Flashlight/OFF
 --- !u!143 &918242595
 CharacterController:
   m_ObjectHideFlags: 0
@@ -7375,7 +7373,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1500455954}
   m_Father: {fileID: 577731046}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7404,7 +7403,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press [F] to turn on the flashlight.
+  m_text: Press        to turn on the flashlight.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 19b44741bba724441927ce9532e28ed5, type: 2}
   m_sharedMaterial: {fileID: 4908157601220859964, guid: 19b44741bba724441927ce9532e28ed5,
@@ -8969,6 +8968,82 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0.18
   m_ShadowAngle: 0
+--- !u!1 &1500455953
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1500455954}
+  - component: {fileID: 1500455956}
+  - component: {fileID: 1500455955}
+  m_Layer: 5
+  m_Name: Fkey
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1500455954
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500455953}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 1282547596}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -98, y: 9}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1500455955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500455953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.7647059, g: 0.7647059, b: 0.7647059, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 310e07f7e877693499cfd782296b4900, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1500455956
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500455953}
+  m_CullTransparentMesh: 1
 --- !u!4 &1514632231 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8581986903642704680, guid: 86be36ce4fffdd047a68a2d5e72b6610,

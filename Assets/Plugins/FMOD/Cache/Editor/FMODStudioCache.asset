@@ -42,12 +42,12 @@ MonoBehaviour:
   Path: Assets/Audio/fmod/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638147644554415134
+  lastModified: 638148389637584797
   FileSizes:
   - Name: Desktop
-    Value: 910
+    Value: 916
   Exists: 1
---- !u!114 &-2180207946491532464
+--- !u!114 &-2408465686964314440
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56,22 +56,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Footsteps/Footsteps
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/FootstepsRunning
   m_EditorClassIdentifier: 
-  Name: Footsteps
-  StudioPath: 
-  Min: 0
-  Max: 0
-  Default: 0
-  ID:
-    data1: 3380541125
-    data2: 2509609828
-  Type: 2
-  IsGlobal: 0
-  Labels:
-  - Dirt
-  Exists: 1
+  Path: event:/FootstepsRunning
+  Guid:
+    Data1: 1243876184
+    Data2: 1155308816
+    Data3: 1125794711
+    Data4: 161159734
+  Banks:
+  - {fileID: -299595978855519701}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1000
 --- !u!114 &-299595978855519701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,10 +89,10 @@ MonoBehaviour:
   Path: Assets/Audio/fmod/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638147644554405134
+  lastModified: 638148389637584797
   FileSizes:
   - Name: Desktop
-    Value: 65472
+    Value: 68960
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -109,14 +111,15 @@ MonoBehaviour:
   - {fileID: -299595978855519701}
   EditorEvents:
   - {fileID: -7677428276119101867}
-  - {fileID: 8181534437147145435}
   - {fileID: 501678236872615840}
+  - {fileID: -2408465686964314440}
+  - {fileID: 1165923136159101605}
   EditorParameters: []
   MasterBanks:
   - {fileID: -299595978855519701}
   StringsBanks:
   - {fileID: -6371629488671033669}
-  cacheTime: 638147644554415134
+  cacheTime: 638148389637584797
   cacheVersion: 131601
 --- !u!114 &501678236872615840
 MonoBehaviour:
@@ -145,7 +148,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 235
---- !u!114 &8181534437147145435
+--- !u!114 &1165923136159101605
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -155,21 +158,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Footsteps
+  m_Name: event:/FootstepsWalking
   m_EditorClassIdentifier: 
-  Path: event:/Footsteps
+  Path: event:/FootstepsWalking
   Guid:
-    Data1: -1891750307
-    Data2: 1196053434
-    Data3: 1479820187
-    Data4: -238923903
+    Data1: 1894370986
+    Data2: 1202692700
+    Data3: 661509793
+    Data4: 1778889218
   Banks:
   - {fileID: -299595978855519701}
   IsStream: 0
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 1
-  Parameters:
-  - {fileID: -2180207946491532464}
+  Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
+  Length: 1000

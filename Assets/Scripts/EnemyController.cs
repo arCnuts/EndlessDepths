@@ -7,13 +7,12 @@ public class EnemyController : MonoBehaviour
     public float chaseSpeed = 4f;
     public float fieldOfViewAngle = 180f;
     public float sightRange = 10f;
-    private bool isStopped = false;
 
     private Transform player;
     [SerializeField]
     private NavMeshAgent navMeshAgent;
     private Vector3 lastKnownPlayerPosition;
-    private bool playerInSight;
+    // private bool playerInSight;
     private int enemyState;
     public float timeRemaining;
 
@@ -63,20 +62,20 @@ public class EnemyController : MonoBehaviour
         switch (enemyState)
         {
             case 1: // Patrol
-                playerInSight = false;
+                // playerInSight = false;
                 navMeshAgent.speed = patrolSpeed;
 
                 break;
 
             case 2: // Chase
-                playerInSight = true;
+                // playerInSight = true;
                 navMeshAgent.speed = chaseSpeed;
 
                 navMeshAgent.SetDestination(lastKnownPlayerPosition);
                 break;
 
             case 3: // I see EVERYTHING!                
-                playerInSight = false;
+                // playerInSight = false;
                 navMeshAgent.speed = chaseSpeed;
 
                 if (timeRemaining > 0) {
