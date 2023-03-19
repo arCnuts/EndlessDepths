@@ -55,7 +55,8 @@ public class PlayerMovement : MonoBehaviour
         playerController.Move(relativeRotation * movement * moveSpeed * Time.deltaTime);
     }
 
-    private void MoveSound() {
+    private void MoveSound()
+    {
         float currentSpeed = new Vector3(playerController.velocity.x, 0, playerController.velocity.z).magnitude;
         if(currentSpeed < toggleSpeed) return;
         RuntimeManager.PlayOneShot(FootstepPath, playerTransform.position + new Vector3(0, -3, 0));
@@ -79,19 +80,41 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void Look() {
+    private Ray interactionRay;
+
+    private void Hide()
+    {
+        Ray interactionRay = new Ray(playerTransform.position, playerTransform.forward);
+        RaycastHit interactionRayHit;
+        Vector3 interactionRayEndpoint = playerTransform.forward;
+
+        Debug.DrawLine(playerTransform.position, interactionRayEndpoint);
+
+        bool hitFound = Physics.Raycast(interactionRay, out interactionRayHit, 10f);
+        if(hitFound)
+        {
+            Debug.Log("Hi");
+            if(interactionRayHit.collider.gameObject.name == "table")
+            {
+                Debug.Log("Hello");
+            }
+        }
+    }
+
+    private void Look()
+    {
         float mouseX = Input.GetAxis("Mouse X") * sensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
 
-        rotationY = playerTransform.transform.localRotation.eulerAngles.y + mouseX;
-        rotationX -= mouseY; rotationX = Mathf.Clamp(rotationX, -89f, 89f);
+        rotationY += mouseX + camHolder.transform.localRotation.eulerAngles.y;
+        rotationX -= mouseY + playerTransform.transform.localRotation.eulerAngles.x;
+        
+        rotationX = Mathf.Clamp(rotationX, -89f, 89f);
 
-        Quaternion test1 = Quaternion.Euler(0, rotationY, 0);
-        playerTransform.transform.localRotation = Quaternion.Slerp(playerTransform.transform.localRotation, test1, speed * Time.deltaTime);
         // playerTransform.transform.localRotation = Quaternion.Euler(0, rotationY, 0);
+        playerTransform.transform.localRotation = Quaternion.Slerp(playerTransform.transform.localRotation, Quaternion.Euler(0, rotationY, 0), speed * Time.deltaTime);
 
-        Quaternion test2 = Quaternion.Euler(rotationX, 0, 0);
-        camHolder.transform.localRotation = Quaternion.Slerp(camHolder.transform.localRotation, test2, speed * Time.deltaTime);
         // camHolder.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+        camHolder.transform.localRotation = Quaternion.Slerp(camHolder.transform.localRotation, Quaternion.Euler(rotationX, 0, 0), speed * Time.deltaTime);
     }
 }

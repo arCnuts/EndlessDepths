@@ -5930,10 +5930,10 @@ MonoBehaviour:
   camHolder: {fileID: 1916056959}
   playerCamera: {fileID: 1823688466}
   moveSpeed: 10
-  sensitivity: 100
-  speed: 2
+  sensitivity: 5
+  speed: 15
   FlashlightLight: {fileID: 1291728393}
-  EventPath: event:/Footsteps
+  FootstepPath: event:/Footsteps
   FlashlightOn: event:/Flashlight/ON
   FlashlightOff: event:/Flashlight/OFF
 --- !u!143 &918242595
@@ -7722,7 +7722,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 0.5754717, g: 0.5754717, b: 0.5754717, a: 1}
   m_Intensity: 1024.7584
-  m_Range: 10
+  m_Range: 15
   m_SpotAngle: 100
   m_InnerSpotAngle: 1
   m_CookieSize: 10
@@ -11310,7 +11310,7 @@ MonoBehaviour:
   _frequency: 20
   _camera: {fileID: 1823688467}
   _cameraHolder: {fileID: 1916056959}
-  _playerController: {fileID: 918242595}
+  playerController: {fileID: 918242595}
 --- !u!1 &1921594376
 GameObject:
   m_ObjectHideFlags: 0
@@ -12813,6 +12813,11 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 96c0f59757c416b47afca5f8c78ac418,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 30acab2fefb49644e87c6cc769f8f88a, type: 2}
     - target: {fileID: 919132149155446097, guid: 96c0f59757c416b47afca5f8c78ac418,
         type: 3}
       propertyPath: m_Name
