@@ -81,6 +81,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: e46d4b5acb8b8054aa42ef019122ecf0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NormalFromTexture_fb1214e09a7a477c91a3f9240db6b25c_Texture_0:
+        m_Texture: {fileID: 2800000, guid: c2ea089562593f042bc5fcef721fb4bb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _NormalMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -90,7 +94,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_a3e260c54d21474e85e4e1a59d651e7a_Texture_1:
-        m_Texture: {fileID: 2800000, guid: e46d4b5acb8b8054aa42ef019122ecf0, type: 3}
+        m_Texture: {fileID: 2800000, guid: c2ea089562593f042bc5fcef721fb4bb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_c974e18373d2406ba208dd2abad5c951_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 9d1cd7307af790f4288dc49c2762194e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecularColorMap:

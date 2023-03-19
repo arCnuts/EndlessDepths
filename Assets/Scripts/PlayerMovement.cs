@@ -14,10 +14,10 @@ public class PlayerMovement : MonoBehaviour
     public GameObject flashlightLight;
 
     private bool flashlightActive = false;
-    private bool walking = false;
+    private bool walking = true;
 
     private float rotationX,rotationY;
-    private float footstepFrequency = 0.3f;
+    private float footstepFrequency = 0.6f;
     private float time;
     private Vector3 combinedMovement;
 
@@ -37,12 +37,21 @@ public class PlayerMovement : MonoBehaviour
     public string FootstepWalkingPath = "event:/FootstepsWalking";
     public string FlashlightOnPath = "event:/Flashlight/ON";
     public string FlashlightOffPath = "event:/Flashlight/OFF";
+    public string AmbiencePath = "event:/Ambience";
 
+
+    FMOD.Studio.EventInstance ambienceInstance;
 
     void Start() {
         flashlightLight.gameObject.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        
+        // RuntimeManager.PlayOneShot(AmbiencePath);
+        ambienceInstance = FMODUnity.RuntimeManager.CreateInstance(AmbiencePath);
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(ambienceInstance, playerTransform);
+        ambienceInstance.start();
+        ambienceInstance.release();
     }
 
     void Update() {
@@ -72,13 +81,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            walking = true;
-            footstepFrequency = 0.6f;
+            walking = false;
+            footstepFrequency = 0.3f;
         }
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            walking = false;
-            footstepFrequency = 0.3f;
+            walking = true;
+            footstepFrequency = 0.6f;
         }
     }
 
@@ -120,13 +129,14 @@ public class PlayerMovement : MonoBehaviour
             rotationX -= mouseY + playerTransform.transform.localRotation.eulerAngles.x;
             rotationX = Mathf.Clamp(rotationX, -89f, 89f);
             
-            playerTransform.transform.localRotation = Quaternion.Slerp(playerTransform.transform.localRotation, Quaternion.Euler(0, rotationY, 0), cameraSmoothness * Time.deltaTime);
             cameraHolder.transform.localRotation = Quaternion.Slerp(cameraHolder.transform.localRotation, Quaternion.Euler(rotationX, 0, 0), cameraSmoothness * Time.deltaTime);
+            playerTransform.transform.localRotation = Quaternion.Slerp(playerTransform.transform.localRotation, Quaternion.Euler(0, rotationY, 0), cameraSmoothness * Time.deltaTime);
         }
         else
         {
             rotationY = playerTransform.transform.localRotation.eulerAngles.y + mouseX;
             rotationX -= mouseY; rotationX = Mathf.Clamp(rotationX, -90f, 90f);
+
             cameraHolder.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
             playerTransform.transform.localRotation = Quaternion.Euler(0, rotationY, 0);
         }
