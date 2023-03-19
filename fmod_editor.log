@@ -7,7 +7,7 @@
 [LOG] OutputWASAPI::init                       : Output buffer size: 4096 samples, latency: 0.00ms, period: 10.00ms, DSP buffer: 1024 * 4
 [LOG] Thread::initThread                       : Init FMOD stream thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFB, Stack Size: 98304, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Affinity: 0x4000000000000001, Priority: 0xFFFF7FFA, Stack Size: 81920, Semaphore: No, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 00000003B5490198 isAsync 0 updatePeriod 0.02
+[LOG] AsyncManager::init                       : manager 00000002A1348978 isAsync 0 updatePeriod 0.02
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
 [LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
@@ -18,61 +18,10 @@
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
 [LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
-[LOG] SystemI::mixerSuspend                    : Suspending output.
-[LOG] SystemI::mixerResume                     : Resuming output.
-[LOG] SystemI::mixerSuspend                    : Suspending output.
-[LOG] SystemI::mixerResume                     : Resuming output.
-[LOG] SystemI::mixerSuspend                    : Suspending output.
-[LOG] SystemI::mixerResume                     : Resuming output.
-[LOG] SystemI::mixerSuspend                    : Suspending output.
-[LOG] SystemI::mixerResume                     : Resuming output.
-[LOG] SystemI::mixerSuspend                    : Suspending output.
 [LOG] Thread::callback                         : FMOD Studio bank load thread finished.
 [LOG] Thread::callback                         : FMOD Studio sample load thread finished.
 [LOG] LiveUpdate::release                      : 
 [LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
 [LOG] Thread::callback                         : FMOD stream thread finished.
 [LOG] Thread::callback                         : FMOD mixer thread finished.
-[LOG] SystemI::close                           : Closed.
-[LOG] SoundI::release                          :  (00000003FC6A0AA8)
-[LOG] SoundI::release                          :     off (000000025D258888)
-[LOG] SoundI::release                          :  (00000003FC69E268)
-[LOG] SoundI::release                          :     on (000000025D25A908)
-[LOG] SoundI::release                          :  (00000003FC69BB98)
-[LOG] SoundI::release                          :     ES_Footsteps Cement 12 [2023-03-18 163633]-1 (00000003B91EED98)
-[LOG] SoundI::release                          :  (00000003FC69F3A8)
-[LOG] SoundI::release                          :     ES_Footsteps Cement 12 [2023-03-18 163633]-10 (000000025D25AC48)
-[LOG] SoundI::release                          :  (00000003FC6A0098)
-[LOG] SoundI::release                          :     ES_Footsteps Cement 12 [2023-03-18 163633]-11 (000000025D258068)
-[LOG] SoundI::release                          :  (00000003FC69D858)
-[LOG] SoundI::release                          :     ES_Footsteps Cement 12 [2023-03-18 163633]-12 (00000003B91EDA18)
-[LOG] SoundI::release                          :  (00000003FC69CE48)
-[LOG] SoundI::release                          :     ES_Footsteps Cement 12 [2023-03-18 163633]-13 (00000003B91EDD58)
-[LOG] SoundI::release                          :  (00000003FC69FC48)
-[LOG] SoundI::release                          :     ES_Footsteps Cement 12 [2023-03-18 163633]-2 (00000003B91EF278)
-[LOG] SoundI::release                          :  (00000003FC69FDB8)
-[LOG] SoundI::release                          :     ES_Footsteps Cement 12 [2023-03-18 163633]-3 (00000003B91EE3D8)
-[LOG] SoundI::release                          :  (00000003FC69C2C8)
-[LOG] SoundI::release                          :     ES_Footsteps Cement 12 [2023-03-18 163633]-4 (00000003B91F0FB8)
-[LOG] SoundI::release                          :  (00000003FC69F0C8)
-[LOG] SoundI::release                          :     ES_Footsteps Cement 12 [2023-03-18 163633]-5 (00000003B91EEBF8)
-[LOG] SoundI::release                          :  (00000003FC69E828)
-[LOG] SoundI::release                          :     ES_Footsteps Cement 12 [2023-03-18 163633]-6 (00000003B91EFF78)
-[LOG] SoundI::release                          :  (00000003FC69F968)
-[LOG] SoundI::release                          :     ES_Footsteps Cement 12 [2023-03-18 163633]-7 (00000003B91ED398)
-[LOG] SoundI::release                          :  (00000003FC69E3D8)
-[LOG] SoundI::release                          :     ES_Footsteps Cement 12 [2023-03-18 163633]-8 (00000003B91ED878)
-[LOG] SoundI::release                          :  (00000003FC69EB08)
-[LOG] SoundI::release                          :     ES_Footsteps Cement 12 [2023-03-18 163633]-9 (00000003B91EF5B8)
-[LOG] SoundI::release                          :  (00000003FC69EDE8)
-[LOG] SoundI::release                          :     ES_Footsteps Cement 12 [2023-03-18 163633] (00000003B91F0C78)
-[LOG] Thread::callback                         : FMOD Studio update thread finished.
-[LOG] Thread::callback                         : FMOD Studio bank load thread finished.
-[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
-[LOG] Thread::callback                         : FMOD Studio sample load thread finished.
-[LOG] LiveUpdate::release                      : 
-[LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
-[LOG] Thread::callback                         : FMOD stream thread finished.
-[LOG] Thread::callback                         : FMOD mixer thread finished.
-[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
 [LOG] SystemI::close                           : Closed.

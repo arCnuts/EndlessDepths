@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour
     public float chaseSpeed = 4f;
     public float fieldOfViewAngle = 180f;
     public float sightRange = 10f;
+    private bool isStopped = false;
 
     private Transform player;
     [SerializeField]
@@ -74,7 +75,7 @@ public class EnemyController : MonoBehaviour
                 navMeshAgent.SetDestination(lastKnownPlayerPosition);
                 break;
 
-            case 3: // Find
+            case 3: // I see EVERYTHING!                
                 playerInSight = false;
                 navMeshAgent.speed = chaseSpeed;
 

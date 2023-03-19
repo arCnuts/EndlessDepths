@@ -22,11 +22,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     public GameObject FlashlightLight;
     private bool FlashlightActive = false;
-    private float toggleSpeed = 3;
-    private float currentSpeed;
-
     [Header("Audio")]
-    public string FootstepPath = "event:/Footsteps";
+    public string EventPath = "event:/Footsteps";
     public string FlashlightOn = "event:/Flashlight/ON";
     public string FlashlightOff = "event:/Flashlight/OFF";
 
@@ -41,8 +38,8 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Move();
-        Flashlight();
         Look();
+        Flashlight();
     }
 
     private void Move()
@@ -55,15 +52,26 @@ public class PlayerMovement : MonoBehaviour
         playerController.Move(relativeRotation * movement * moveSpeed * Time.deltaTime);
     }
 
+<<<<<<< HEAD
     private void MoveSound()
     {
         float currentSpeed = new Vector3(playerController.velocity.x, 0, playerController.velocity.z).magnitude;
         if(currentSpeed < toggleSpeed) return;
         RuntimeManager.PlayOneShot(FootstepPath, playerTransform.position + new Vector3(0, -3, 0));
+=======
+
+
+
+    private void MoveSound() {
+        if(movement != Vector3.zero)
+        {
+            RuntimeManager.PlayOneShot(EventPath, playerTransform.position + new Vector3(0, -3, 0));
+        }
+>>>>>>> parent of cf0e007 (1)
     }
 
     private void Flashlight() {
-        if(Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             if (FlashlightActive == false)
             {
@@ -80,6 +88,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+<<<<<<< HEAD
     private Ray interactionRay;
 
     private void Hide()
@@ -105,15 +114,30 @@ public class PlayerMovement : MonoBehaviour
     {
         float mouseX = Input.GetAxis("Mouse X") * sensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
+=======
+    private void Look() {
+        float mouseX = Input.GetAxis("Mouse X") * sensitivity * 100; //* Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * sensitivity; //* Time.deltaTime;
+>>>>>>> parent of cf0e007 (1)
 
         rotationY += mouseX + camHolder.transform.localRotation.eulerAngles.y;
         rotationX -= mouseY + playerTransform.transform.localRotation.eulerAngles.x;
         
         rotationX = Mathf.Clamp(rotationX, -89f, 89f);
 
+<<<<<<< HEAD
+=======
+        Quaternion test1 = Quaternion.Euler(0, rotationY, 0);
+        playerTransform.transform.localRotation = Quaternion.Slerp(playerTransform.transform.localRotation, test1, Time.deltaTime * speed);
+>>>>>>> parent of cf0e007 (1)
         // playerTransform.transform.localRotation = Quaternion.Euler(0, rotationY, 0);
         playerTransform.transform.localRotation = Quaternion.Slerp(playerTransform.transform.localRotation, Quaternion.Euler(0, rotationY, 0), speed * Time.deltaTime);
 
+<<<<<<< HEAD
+=======
+        Quaternion test2 = Quaternion.Euler(rotationX, 0, 0);
+        camHolder.transform.localRotation = Quaternion.Slerp(camHolder.transform.localRotation, test2, Time.deltaTime * speed);
+>>>>>>> parent of cf0e007 (1)
         // camHolder.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
         camHolder.transform.localRotation = Quaternion.Slerp(camHolder.transform.localRotation, Quaternion.Euler(rotationX, 0, 0), speed * Time.deltaTime);
     }
