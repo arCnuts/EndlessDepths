@@ -21,6 +21,10 @@ public class PlayerMovement : MonoBehaviour
     private float time;
     private Vector3 combinedMovement;
 
+    private bool timerIsRunning = true;
+    private float timeRemaining = 1f;
+    private int notificationCount = 0;
+
     [Header("Player Settings")]
     [SerializeField]
     private float runSpeed = 10f;
@@ -38,9 +42,11 @@ public class PlayerMovement : MonoBehaviour
     public string FlashlightOnPath = "event:/Flashlight/ON";
     public string FlashlightOffPath = "event:/Flashlight/OFF";
     public string AmbiencePath = "event:/Ambience";
+    public string NotificationPath = "event:/Notification";
 
 
     FMOD.Studio.EventInstance ambienceInstance;
+    FMOD.Studio.EventInstance notificationInstance;
 
     void Start() {
         flashlightLight.gameObject.SetActive(false);
@@ -57,8 +63,10 @@ public class PlayerMovement : MonoBehaviour
     void Update() {
         InputManager();
         FootstepManager();
+        TutorialNotificationSounds();
         Move();
         Look();
+        LookingAt();
     }
 
     private void InputManager() {
@@ -105,6 +113,46 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void TutorialNotificationSounds()
+    {
+        if (timerIsRunning)
+        {
+            if (timeRemaining > 0)
+            {
+                timeRemaining -= Time.deltaTime;
+            }
+            else
+            {
+                if (notificationCount == 0)
+                {
+                    notificationInstance = FMODUnity.RuntimeManager.CreateInstance(NotificationPath);
+                    FMODUnity.RuntimeManager.AttachInstanceToGameObject(notificationInstance, playerTransform);
+                    notificationInstance.start();
+                    notificationInstance.release();
+                    notificationCount++;
+                    timeRemaining = 5f;
+                }
+                else if (notificationCount == 1)
+                {
+                    notificationInstance = FMODUnity.RuntimeManager.CreateInstance(NotificationPath);
+                    FMODUnity.RuntimeManager.AttachInstanceToGameObject(notificationInstance, playerTransform);
+                    notificationInstance.start();
+                    notificationInstance.release();
+                    notificationCount++;
+                    timeRemaining = 6f;
+                }
+                else if (notificationCount == 2)
+                {
+                    notificationInstance = FMODUnity.RuntimeManager.CreateInstance(NotificationPath);
+                    FMODUnity.RuntimeManager.AttachInstanceToGameObject(notificationInstance, playerTransform);
+                    notificationInstance.start();
+                    notificationInstance.release();
+                    timerIsRunning = false;
+                }
+            }
+        }
+    }
+
     private void Move() {
         float keyboardX = Input.GetAxisRaw("Horizontal");
         float keyboardY = Input.GetAxisRaw("Vertical");
@@ -116,6 +164,18 @@ public class PlayerMovement : MonoBehaviour
         }
         else {
             playerController.Move(relativeRotation * combinedMovement * runSpeed * Time.deltaTime);
+        }
+    }
+
+    private void LookingAt() {
+        Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward * 2f);
+
+        RaycastHit hit;
+
+        if (!Input.GetKeyDown(KeyCode.E)) return;
+        if (Physics.Raycast(ray, out hit) && hit.collider.CompareTag("Artifact"))
+        {
+            Debug.Log("hewwoooooo");
         }
     }
 
