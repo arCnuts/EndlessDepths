@@ -6,46 +6,47 @@ using TMPro;
 public class textTimer : MonoBehaviour
 {
     public Transform playerTransform;
-
-    public float timeRemainingTEST = 300f;
-    public bool timerIsRunningTEST = true;
     public TextMeshProUGUI timeText;
 
-    public AnimationClip animationClip;
+    public bool levelTimerIsRunning = true;
+    public float levelTimerSeconds = 300f;
+
+    private bool notificationTimerIsRunning = true;
+    private float notificationTimerSeconds = 1f;
     private float timeToDisplay;
-
-    public Animator[] animator;
-
-    private bool timerIsRunning = true;
-    private float timeRemaining = 1f;
     private int notificationCount = 0;
 
+    public Animator[] animator;
     public string NotificationPath = "event:/Notification";
 
     FMOD.Studio.EventInstance notificationInstance;
+    FMOD.Studio.Bus MasterBus;
 
 
     void Start() {
         for (int i = 0; i < animator.Length; i++) {
             animator[i].enabled = false;
         }
+        MasterBus = FMODUnity.RuntimeManager.GetBus("Bus:/");
     }
 
     void Update() {
-        TimerNotification();
-        TutorialNotificationSounds();
+        LevelTimer();
+        NotificationTimer();
     }
 
-    private void TimerNotification() {
-        if (timerIsRunningTEST) {
-            if (timeRemainingTEST > 0) {
-                timeRemainingTEST -= Time.deltaTime;
-                DisplayTime(timeRemainingTEST);
+    private void LevelTimer() {
+        if (levelTimerIsRunning) {
+            if (levelTimerSeconds > 0) {
+                levelTimerSeconds -= Time.deltaTime;
+                DisplayTime(levelTimerSeconds);
             }
             else {
-                timeRemainingTEST = 0f;
-                timerIsRunningTEST = false;
+                levelTimerSeconds = 0f;
+                levelTimerIsRunning = false;
+                MasterBus.stopAllEvents(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                 animator[3].enabled = true;
+                StartCoroutine(PlaySoundAfterAnimation(1f));
             }
         }
     }
@@ -57,43 +58,43 @@ public class textTimer : MonoBehaviour
         timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
-    void TutorialNotificationSounds()
+    void NotificationTimer()
     {
-        if (timerIsRunning)
+        if (notificationTimerIsRunning)
         {
-            if (timeRemaining > 0)
+            if (notificationTimerSeconds > 0)
             {
-                timeRemaining -= Time.deltaTime;
+                notificationTimerSeconds -= Time.deltaTime;
             }
             else
             {
                 if (notificationCount == 0)
                 {
                     animator[0].enabled = true;
+                    StartCoroutine(PlaySoundAfterAnimation(1f));
                     notificationCount++;
-                    StartCoroutine(PlaySoundAfterAnimation(1));
-                    timeRemaining = 5f;
+                    notificationTimerSeconds = 5f;
                 }
                 else if (notificationCount == 1)
                 {
                     animator[1].enabled = true;
+                    StartCoroutine(PlaySoundAfterAnimation(1f));
                     notificationCount++;
-                    StartCoroutine(PlaySoundAfterAnimation(1));
-                    timeRemaining = 5f;
+                    notificationTimerSeconds = 5f;
                 }
                 else if (notificationCount == 2)
                 {
                     animator[2].enabled = true;
-                    StartCoroutine(PlaySoundAfterAnimation(1));
-                    timerIsRunning = false;
+                    StartCoroutine(PlaySoundAfterAnimation(1f));
+                    notificationTimerIsRunning = false;
                 }
             }
         }
     }
 
-    IEnumerator PlaySoundAfterAnimation(int index)
+    IEnumerator PlaySoundAfterAnimation(float delayTime)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(delayTime);
         
         notificationInstance = FMODUnity.RuntimeManager.CreateInstance(NotificationPath);
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(notificationInstance, playerTransform);
