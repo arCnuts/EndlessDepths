@@ -58,8 +58,7 @@ public class textTimer : MonoBehaviour
         timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
-    void NotificationTimer()
-    {
+    void NotificationTimer(){
         if (notificationTimerIsRunning)
         {
             if (notificationTimerSeconds > 0)

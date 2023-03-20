@@ -12,11 +12,11 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private NavMeshAgent navMeshAgent;
     private Vector3 lastKnownPlayerPosition;
-    private bool playerInSight;
-    private bool chasingMode;
-    private int enemyState;
-    public float timeRemaining = 5f;
 
+    public bool playerInSight;
+    public int enemyState = 1;
+    public float timeRemaining = 10f;
+    private bool targetMode = false;
 
     void Start()
     {
@@ -49,14 +49,18 @@ public class EnemyController : MonoBehaviour
                 }
                 else {
                     if (enemyState == 2) {
-                        
+                        timeRemaining = 10f;
+                        targetMode = true;
+                        enemyState = 3;
+
                     }
                 }
             }
         }
-        enemyState = 1;
+
 
     }
+
     private void SetEnemyState()
     {
         switch (enemyState)
@@ -71,8 +75,6 @@ public class EnemyController : MonoBehaviour
                 playerInSight = true;
                 navMeshAgent.speed = chaseSpeed;
 
-                timeRemaining = 5f;
-                targetTimer();
                 navMeshAgent.SetDestination(lastKnownPlayerPosition);
 
                 break;
@@ -80,8 +82,7 @@ public class EnemyController : MonoBehaviour
             case 3: // Target
                 playerInSight = false;
                 navMeshAgent.speed = chaseSpeed;
-                
-                chasingMode = true;
+                targetTimer();
 
 
                 navMeshAgent.SetDestination(player.position);
@@ -89,8 +90,6 @@ public class EnemyController : MonoBehaviour
                 break;
         }
     }
-
-    private bool targetMode;
 
     private void targetTimer() {
         if (targetMode)
@@ -101,7 +100,7 @@ public class EnemyController : MonoBehaviour
             }
             else
             {
-                //execute code here
+                enemyState = 1;                
                 targetMode = false;
             }
         }
