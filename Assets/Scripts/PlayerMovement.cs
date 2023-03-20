@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject flashlightLight;
 
     private bool flashlightActive = false;
-    private bool isRunning = false;
+    private bool walking = true;
 
     private float rotationX,rotationY;
     private float footstepFrequency = 0.6f;
@@ -23,13 +23,15 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Player Settings")]
     [SerializeField]
-    private float walkSpeed = 5f;
+    private float runSpeed = 10f;
+    [SerializeField]
+    private float shiftSpeed = 5f;
+    [SerializeField]
+    private float sensitivity = 2f;
     [SerializeField]
     private bool smoothCamera = true;
     [SerializeField]
     private float cameraSmoothness = 15f;
-    [SerializeField]
-    private float cameraSensitivity = 2f;
     [Header("Audio")]
     public string FootstepRunningPath = "event:/FootstepsRunning";
     public string FootstepWalkingPath = "event:/FootstepsWalking";
@@ -44,23 +46,24 @@ public class PlayerMovement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         
+        // RuntimeManager.PlayOneShot(AmbiencePath);
         ambienceInstance = FMODUnity.RuntimeManager.CreateInstance(AmbiencePath);
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(ambienceInstance, playerTransform);
         ambienceInstance.start();
         ambienceInstance.release();
-
     }
 
     void Update() {
-        Flashlight();
-        Running();
+        InputManager();
         FootstepManager();
         Move();
         Look();
+        LookingAt();
     }
 
-    private void Flashlight() {
-        if (!Input.GetKeyDown(KeyCode.F)) return;
+    private void InputManager() {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
             if (flashlightActive == false)
             {
                 RuntimeManager.PlayOneShot(FlashlightOnPath, playerTransform.position + Vector3.down);
@@ -74,20 +77,17 @@ public class PlayerMovement : MonoBehaviour
                 flashlightLight.gameObject.SetActive(false);
                 flashlightActive = false;
             }
-    }
+        }
 
-    private void Running() {
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            isRunning = true;
+            walking = false;
             footstepFrequency = 0.3f;
-            walkSpeed = 10f;
         }
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            isRunning = false;
+            walking = true;
             footstepFrequency = 0.6f;
-            walkSpeed = 5f;
         }
     }
 
@@ -96,11 +96,11 @@ public class PlayerMovement : MonoBehaviour
             time = Time.time + footstepFrequency;
             float currendSpeed = new Vector3(playerController.velocity.x, 0, playerController.velocity.z).magnitude;
             if(currendSpeed < 3f) return;
-                if (isRunning) {
-                    RuntimeManager.PlayOneShot(FootstepRunningPath, playerTransform.position + new Vector3(0, -3, 0));
+                if (walking) {
+                    RuntimeManager.PlayOneShot(FootstepWalkingPath, playerTransform.position + new Vector3(0, -3, 0));
                 }
                 else {
-                    RuntimeManager.PlayOneShot(FootstepWalkingPath, playerTransform.position + new Vector3(0, -3, 0));
+                    RuntimeManager.PlayOneShot(FootstepRunningPath, playerTransform.position + new Vector3(0, -3, 0));
                 }
         }
     }
@@ -111,13 +111,29 @@ public class PlayerMovement : MonoBehaviour
         combinedMovement = new Vector3(keyboardX,0,keyboardY).normalized;
 
         Quaternion relativeRotation = Quaternion.Euler(0,playerTransform.transform.eulerAngles.y,0);
-        playerController.Move(relativeRotation * combinedMovement * walkSpeed * Time.deltaTime);
+        if (walking) {
+            playerController.Move(relativeRotation * combinedMovement * shiftSpeed * Time.deltaTime);
+        }
+        else {
+            playerController.Move(relativeRotation * combinedMovement * runSpeed * Time.deltaTime);
+        }
+    }
 
+    private void LookingAt() {
+        Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward * 2f);
+
+        RaycastHit hit;
+
+        if (!Input.GetKeyDown(KeyCode.E)) return;
+        if (Physics.Raycast(ray, out hit) && hit.collider.CompareTag("Artifact"))
+        {
+            Debug.Log("hewwoooooo");
+        }
     }
 
     private void Look() {
-        float mouseX = Input.GetAxis("Mouse X") * cameraSensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * cameraSensitivity;
+        float mouseX = Input.GetAxis("Mouse X") * sensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
         
         if(smoothCamera)
         {
@@ -136,5 +152,6 @@ public class PlayerMovement : MonoBehaviour
             cameraHolder.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
             playerTransform.transform.localRotation = Quaternion.Euler(0, rotationY, 0);
         }
+
     }
 }

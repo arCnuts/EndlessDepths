@@ -69,7 +69,7 @@ MonoBehaviour:
   Path: Assets/Audio/fmod/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638149122871592920
+  lastModified: 638148688537040673
   FileSizes:
   - Name: Desktop
     Value: 1010
@@ -143,10 +143,10 @@ MonoBehaviour:
   Path: Assets/Audio/fmod/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638149122871582950
+  lastModified: 638148688537030672
   FileSizes:
   - Name: Desktop
-    Value: 1451968
+    Value: 1451680
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -175,7 +175,7 @@ MonoBehaviour:
   - {fileID: -299595978855519701}
   StringsBanks:
   - {fileID: -6371629488671033669}
-  cacheTime: 638149122871592920
+  cacheTime: 638148688537040673
   cacheVersion: 131601
 --- !u!114 &501678236872615840
 MonoBehaviour:

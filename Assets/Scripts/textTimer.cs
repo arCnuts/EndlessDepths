@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class TextTimer : MonoBehaviour
+public class textTimer : MonoBehaviour
 {
     public Transform playerTransform;
 
@@ -21,13 +21,11 @@ public class TextTimer : MonoBehaviour
     private int notificationCount = 0;
 
     public string NotificationPath = "event:/Notification";
-    public FMOD.Studio.Bus MasterBus;
 
     FMOD.Studio.EventInstance notificationInstance;
 
 
     void Start() {
-        MasterBus = FMODUnity.RuntimeManager.GetBus("Bus:/");
         for (int i = 0; i < animator.Length; i++) {
             animator[i].enabled = false;
         }
@@ -48,8 +46,6 @@ public class TextTimer : MonoBehaviour
                 timeRemainingTEST = 0f;
                 timerIsRunningTEST = false;
                 animator[3].enabled = true;
-                StartCoroutine(PlaySoundAfterAnimation(1f));
-                MasterBus.stopAllEvents(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             }
         }
     }
@@ -74,30 +70,30 @@ public class TextTimer : MonoBehaviour
                 if (notificationCount == 0)
                 {
                     animator[0].enabled = true;
-                    StartCoroutine(PlaySoundAfterAnimation(1f));
                     notificationCount++;
+                    StartCoroutine(PlaySoundAfterAnimation(1));
                     timeRemaining = 5f;
                 }
                 else if (notificationCount == 1)
                 {
                     animator[1].enabled = true;
-                    StartCoroutine(PlaySoundAfterAnimation(1f));
                     notificationCount++;
+                    StartCoroutine(PlaySoundAfterAnimation(1));
                     timeRemaining = 5f;
                 }
                 else if (notificationCount == 2)
                 {
                     animator[2].enabled = true;
-                    StartCoroutine(PlaySoundAfterAnimation(1f));
+                    StartCoroutine(PlaySoundAfterAnimation(1));
                     timerIsRunning = false;
                 }
             }
         }
     }
 
-    IEnumerator PlaySoundAfterAnimation(float delayTime)
+    IEnumerator PlaySoundAfterAnimation(int index)
     {
-        yield return new WaitForSeconds(delayTime);
+        yield return new WaitForSeconds(1f);
         
         notificationInstance = FMODUnity.RuntimeManager.CreateInstance(NotificationPath);
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(notificationInstance, playerTransform);
