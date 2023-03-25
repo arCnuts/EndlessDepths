@@ -12,21 +12,21 @@ public class PlayerHeadBob : MonoBehaviour
     private float _frequency = 20.0f;
 
     [SerializeField]
-    private Transform _camera = null;
+    private Transform playerCamera = null;
     [SerializeField]
-    private Transform _cameraHolder = null;
+    private Transform cameraHolder = null;
     private Vector3 _startPos;
     [SerializeField]
     public CharacterController playerController;
 
     private void Awake()
     {
-        _startPos = _camera.localPosition;
+        _startPos = playerCamera.localPosition;
     }
 
     private void PlayMotion(Vector3 motion)
     {
-        _camera.localPosition += motion; 
+        playerCamera.localPosition += motion; 
     }
 
     private Vector3 FootStepMotion()
@@ -48,23 +48,22 @@ public class PlayerHeadBob : MonoBehaviour
 
     private void ResetPosition()
     {
-        if(_camera.localPosition == _startPos) return;
-        _camera.localPosition = Vector3.Lerp(_camera.localPosition, _startPos, 1 * Time.deltaTime);
+        if(playerCamera.localPosition == _startPos) return;
+        playerCamera.localPosition = Vector3.Lerp(playerCamera.localPosition, _startPos, Time.deltaTime);
     }
 
     private Vector3 FocusTarget()
     {
-        Vector3 pos = new Vector3(transform.position.x, transform.position.y + _cameraHolder.localPosition.y, transform.position.z);
-        pos += _cameraHolder.forward * 15.0f;
+        Vector3 pos = new Vector3(transform.position.x, transform.position.y + cameraHolder.localPosition.y, transform.position.z);
+        pos += cameraHolder.forward * 15.0f;
         return pos;
     }
 
     void Update()
     {
         if(!_enable) return;
-        // ResetPosition();
         CheckMotion();
         ResetPosition();
-        _camera.LookAt(FocusTarget());
+        playerCamera.LookAt(FocusTarget());
     }
 }

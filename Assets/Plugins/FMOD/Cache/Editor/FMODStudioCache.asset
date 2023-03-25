@@ -1,32 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8425489519011330642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Notification
-  m_EditorClassIdentifier: 
-  Path: event:/Notification
-  Guid:
-    Data1: -813952374
-    Data2: 1277273303
-    Data3: -544816483
-    Data4: 1479336058
-  Banks:
-  - {fileID: -299595978855519701}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 517
 --- !u!114 &-7677428276119101867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54,6 +27,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 287
+--- !u!114 &-7416228315079721089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Footsteps/FootstepsRunning
+  m_EditorClassIdentifier: 
+  Path: event:/Footsteps/FootstepsRunning
+  Guid:
+    Data1: 1243876184
+    Data2: 1155308816
+    Data3: 1125794711
+    Data4: 161159734
+  Banks:
+  - {fileID: -299595978855519701}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1000
 --- !u!114 &-6371629488671033669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,12 +69,12 @@ MonoBehaviour:
   Path: Assets/Audio/fmod/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638149221537071759
+  lastModified: 638150325799789474
   FileSizes:
   - Name: Desktop
-    Value: 1010
+    Value: 1086
   Exists: 1
---- !u!114 &-3792191339956883879
+--- !u!114 &-5604209058154651436
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -84,9 +84,36 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Ambience
+  m_Name: event:/UI/Notification
   m_EditorClassIdentifier: 
-  Path: event:/Ambience
+  Path: event:/UI/Notification
+  Guid:
+    Data1: -813952374
+    Data2: 1277273303
+    Data3: -544816483
+    Data4: 1479336058
+  Banks:
+  - {fileID: -299595978855519701}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 517
+--- !u!114 &-3494223019568383111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Ambience/Ambience
+  m_EditorClassIdentifier: 
+  Path: event:/Ambience/Ambience
   Guid:
     Data1: -1615743353
     Data2: 1272186043
@@ -101,7 +128,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 144000
---- !u!114 &-2408465686964314440
+--- !u!114 &-3303207838803796161
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,14 +138,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/FootstepsRunning
+  m_Name: event:/Footsteps/FootstepsWalking
   m_EditorClassIdentifier: 
-  Path: event:/FootstepsRunning
+  Path: event:/Footsteps/FootstepsWalking
   Guid:
-    Data1: 1243876184
-    Data2: 1155308816
-    Data3: 1125794711
-    Data4: 161159734
+    Data1: 1894370986
+    Data2: 1202692700
+    Data3: 661509793
+    Data4: 1778889218
   Banks:
   - {fileID: -299595978855519701}
   IsStream: 0
@@ -143,10 +170,10 @@ MonoBehaviour:
   Path: Assets/Audio/fmod/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638149221537061790
+  lastModified: 638150325799779379
   FileSizes:
   - Name: Desktop
-    Value: 1451968
+    Value: 1564480
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -166,16 +193,17 @@ MonoBehaviour:
   EditorEvents:
   - {fileID: -7677428276119101867}
   - {fileID: 501678236872615840}
-  - {fileID: -2408465686964314440}
-  - {fileID: 1165923136159101605}
-  - {fileID: -3792191339956883879}
-  - {fileID: -8425489519011330642}
+  - {fileID: -7416228315079721089}
+  - {fileID: -3494223019568383111}
+  - {fileID: -5604209058154651436}
+  - {fileID: -3303207838803796161}
+  - {fileID: 7032055046315860877}
   EditorParameters: []
   MasterBanks:
   - {fileID: -299595978855519701}
   StringsBanks:
   - {fileID: -6371629488671033669}
-  cacheTime: 638149221537071759
+  cacheTime: 638150325799789474
   cacheVersion: 131601
 --- !u!114 &501678236872615840
 MonoBehaviour:
@@ -204,7 +232,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 235
---- !u!114 &1165923136159101605
+--- !u!114 &7032055046315860877
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -214,20 +242,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/FootstepsWalking
+  m_Name: event:/Monster/FootstepsMonster
   m_EditorClassIdentifier: 
-  Path: event:/FootstepsWalking
+  Path: event:/Monster/FootstepsMonster
   Guid:
-    Data1: 1894370986
-    Data2: 1202692700
-    Data3: 661509793
-    Data4: 1778889218
+    Data1: 48947143
+    Data2: 1298925253
+    Data3: 687597696
+    Data4: 586238546
   Banks:
   - {fileID: -299595978855519701}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 1000
+  Length: 991

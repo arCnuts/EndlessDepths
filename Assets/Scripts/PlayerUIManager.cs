@@ -17,8 +17,6 @@ public class PlayerUIManager : MonoBehaviour
         LookingAt();
     }
 
-
-
     private void LookingAt() {
 
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward * 2f);

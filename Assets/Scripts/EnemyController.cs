@@ -1,5 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
+using FMODUnity;
+using FMOD.Studio;
 
 public class EnemyController : MonoBehaviour
 {
@@ -10,13 +13,17 @@ public class EnemyController : MonoBehaviour
 
     private Transform player;
     [SerializeField]
-    private NavMeshAgent navMeshAgent;
-    private Vector3 lastKnownPlayerPosition;
+    private UnityEngine.AI.NavMeshAgent navMeshAgent;
+    // [SerializeField]
+    // private Animator animator;
 
     public bool playerInSight;
-    public int enemyState = 1;
-    public float timeRemaining = 10f;
     private bool targetMode = false;
+    private float footstepFrequency = 0.6f;
+    public float timeRemaining = 10f;
+    public int enemyState = 1;
+    private Vector3 lastKnownPlayerPosition;
+
 
     void Start()
     {
@@ -28,6 +35,7 @@ public class EnemyController : MonoBehaviour
     {
         CheckPlayerInSight();
         SetEnemyState();
+        Footsteps();
     }
 
     private void CheckPlayerInSight()
@@ -41,11 +49,8 @@ public class EnemyController : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(transform.position, directionToPlayer, out hit, sightRange))
             {
-                if (hit.collider.CompareTag("Player"))
-                {
+                if (hit.collider.CompareTag("Player")) {
                     enemyState = 2;
-                    lastKnownPlayerPosition = player.position;
-                    return;
                 }
                 else {
                     if (enemyState == 2) {
@@ -57,8 +62,6 @@ public class EnemyController : MonoBehaviour
                 }
             }
         }
-
-
     }
 
     private void SetEnemyState()
@@ -68,42 +71,48 @@ public class EnemyController : MonoBehaviour
             case 1: // Patrol
                 playerInSight = false;
                 navMeshAgent.speed = patrolSpeed;
-
                 break;
-
             case 2: // Chase
                 playerInSight = true;
                 navMeshAgent.speed = chaseSpeed;
-
-                navMeshAgent.SetDestination(lastKnownPlayerPosition);
-
+                navMeshAgent.SetDestination(player.position);
                 break;
-
             case 3: // Target
                 playerInSight = false;
                 navMeshAgent.speed = chaseSpeed;
                 targetTimer();
-
-
                 navMeshAgent.SetDestination(player.position);
-
                 break;
         }
     }
 
     private void targetTimer() {
-        if (targetMode)
-        {
-            if (timeRemaining > 0)
-            {
+        if (!targetMode) return;
+            if (timeRemaining > 0) {
                 timeRemaining -= Time.deltaTime;
             }
-            else
-            {
+            else {
                 enemyState = 1;                
                 targetMode = false;
             }
-        }
+    }
+    
 
+    public string FootstepRunningPath = "event:/FootstepsRunning";
+    public string FootstepWalkingPath = "event:/FootstepsWalking";
+    private float time;
+    public float currentSpeed;
+
+    private void Footsteps() {
+        if (Time.time > time) {
+            time = Time.time + footstepFrequency;
+            currentSpeed = new Vector3(navMeshAgent.velocity.x, 0, navMeshAgent.velocity.z).magnitude;
+            if (currentSpeed > 1f) {
+                // animator.SetBool("isRunning", true);
+            }
+            else {
+                // animator.SetBool("isRunning", false);
+            }
+        }
     }
 }

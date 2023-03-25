@@ -72,6 +72,7 @@ public class PlayerMovement : MonoBehaviour
             }
     }
 
+
     private void WalkRunToggle() {
         if (Input.GetKeyDown(KeyCode.LeftShift)) {
             isRunning = true;
@@ -85,11 +86,17 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
+    // private float camFov = 60f;
+    // private float runFov = 90f;
+    //                 playerCamera.fieldOfView = Mathf.Lerp(camFov, runFov, 1f * Time.deltaTime);
+
+
     private void Footsteps() {
         if (Time.time > time) {
             time = Time.time + footstepFrequency;
-            float currendSpeed = new Vector3(playerController.velocity.x, 0, playerController.velocity.z).magnitude;
-            if(currendSpeed < 3f) return;
+            float currentSpeed = new Vector3(playerController.velocity.x, 0, playerController.velocity.z).magnitude;
+            if(currentSpeed < 3f) return;
                 if (isRunning) {
                     RuntimeManager.PlayOneShot(FootstepRunningPath, playerTransform.position + new Vector3(0, -3, 0));
                 }
