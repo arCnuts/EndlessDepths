@@ -71,6 +71,7 @@ public class EnemyController : MonoBehaviour
             case 1: // Patrol
                 playerInSight = false;
                 navMeshAgent.speed = patrolSpeed;
+                navMeshAgent.SetDestination(player.position);
                 break;
             case 2: // Chase
                 playerInSight = true;
